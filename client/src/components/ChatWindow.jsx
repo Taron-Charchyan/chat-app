@@ -13,6 +13,7 @@ export default function ChatWindow() {
     setMessages,
     typingUsers,
     user,
+    setSidebarVisible,
   } = useStore();
   const socket = useSocket();
   const messagesEndRef = useRef(null);
@@ -90,7 +91,7 @@ export default function ChatWindow() {
   if (!activeRoom) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center bg-dark-bg">
-        <p className="text-dark-text-secondary text-xl">
+        <p className="text-dark-text-secondary text-xl text-center px-4">
           👈 Select a room to start chatting
         </p>
       </div>
@@ -101,29 +102,39 @@ export default function ChatWindow() {
   const otherUser = activeRoom.isPrivate ? activeRoom.members?.find((m) => m._id !== user?.id) : null;
 
   return (
-    <div className="flex-1 flex flex-col bg-dark-bg">
+    <div className="flex-1 flex flex-col bg-dark-bg h-[100dvh] overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-white border-opacity-10">
-        {activeRoom.isPrivate && otherUser ? (
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold flex-shrink-0">
-              {getInitials(otherUser.username)}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSidebarVisible(true)}
+            className="md:hidden text-dark-text p-1 hover:bg-dark-card rounded-lg transition"
+            aria-label="Back to sidebar"
+          >
+            ←
+          </button>
+
+          {activeRoom.isPrivate && otherUser ? (
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold flex-shrink-0">
+                {getInitials(otherUser.username)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-dark-text font-bold text-lg truncate">{otherUser.username}</h2>
+                <p className="text-dark-text-secondary text-sm truncate">{getStatusText(otherUser)}</p>
+              </div>
             </div>
-            <div className="flex-1">
-              <h2 className="text-dark-text font-bold text-lg">{otherUser.username}</h2>
-              <p className="text-dark-text-secondary text-sm">{getStatusText(otherUser)}</p>
+          ) : (
+            <div className="flex-1 min-w-0">
+              <h2 className="text-dark-text font-bold text-lg truncate">
+                # {activeRoom.name}
+              </h2>
+              {activeRoom.description && (
+                <p className="text-dark-text-secondary text-sm truncate">{activeRoom.description}</p>
+              )}
             </div>
-          </div>
-        ) : (
-          <div>
-            <h2 className="text-dark-text font-bold text-lg">
-              # {activeRoom.name}
-            </h2>
-            {activeRoom.description && (
-              <p className="text-dark-text-secondary text-sm">{activeRoom.description}</p>
-            )}
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Messages */}

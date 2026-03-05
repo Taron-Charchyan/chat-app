@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const { user, logout, setRooms, setActiveRoom, setDmRooms, rooms, activeRoom, dmRooms, onlineUsers } = useStore();
+  const { user, logout, setRooms, setActiveRoom, setDmRooms, rooms, activeRoom, dmRooms, onlineUsers, setSidebarVisible } = useStore();
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showNewDM, setShowNewDM] = useState(false);
   const [roomName, setRoomName] = useState('');
@@ -88,6 +88,7 @@ export default function Sidebar() {
 
   const handleRoomClick = (room) => {
     setActiveRoom(room);
+    setSidebarVisible(false);
     if (socket) {
       socket.emit('room:join', room._id);
     }
@@ -109,7 +110,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-80 bg-dark-sidebar border-r border-white border-opacity-10 flex flex-col h-screen">
+    <div className="w-full md:w-80 bg-dark-sidebar border-r border-white border-opacity-10 flex flex-col h-[100dvh]">
       {/* Header */}
       <div className="p-4 border-b border-white border-opacity-10">
         <h1 className="text-2xl font-bold text-dark-text">💬 Chat</h1>

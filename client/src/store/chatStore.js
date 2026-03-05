@@ -14,6 +14,7 @@ export const useStore = create((set, get) => ({
   onlineUsers: [],
   typingUsers: {},
   dmList: [],
+  isSidebarVisible: true, // For mobile responsiveness
 
   // Actions
   setUser: (user) => set({ user }),
@@ -107,4 +108,6 @@ export const useStore = create((set, get) => ({
       dmList: [...state.dmList, room],
     }));
   },
+
+  setSidebarVisible: (visible) => set({ isSidebarVisible: visible }),
 }));

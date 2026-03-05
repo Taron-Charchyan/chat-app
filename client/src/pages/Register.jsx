@@ -29,7 +29,7 @@ export default function Register() {
       console.log('Sending registration request with:', { username, email });
       const response = await register(username, email, password);
       console.log('Registration response:', response.data);
-      
+
       const { token, user } = response.data;
 
       setToken(token);
@@ -46,7 +46,7 @@ export default function Register() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-dark-bg">
+    <div className="w-full h-[100dvh] flex items-center justify-center bg-dark-bg overflow-y-auto py-8">
       <div className="w-96 bg-dark-card border border-white border-opacity-10 rounded-card p-8 backdrop-blur-sm">
         <h1 className="text-3xl font-bold text-dark-text mb-8 text-center">Chat App</h1>
 

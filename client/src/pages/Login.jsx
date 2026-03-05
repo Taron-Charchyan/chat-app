@@ -32,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-dark-bg">
+    <div className="w-full h-[100dvh] flex items-center justify-center bg-dark-bg">
       <div className="w-96 bg-dark-card border border-white border-opacity-10 rounded-card p-8 backdrop-blur-sm">
         <h1 className="text-3xl font-bold text-dark-text mb-8 text-center">Chat App</h1>
 

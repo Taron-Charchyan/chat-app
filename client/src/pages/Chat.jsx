@@ -16,6 +16,8 @@ export default function Chat() {
     removeOnlineUser,
     setTyping,
     clearTyping,
+    isSidebarVisible,
+    activeRoom
   } = useStore();
   const socket = useSocket();
 
@@ -61,10 +63,22 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex h-screen w-full bg-dark-bg">
-      <Sidebar />
-      <ChatWindow />
-      <OnlineUsers />
+    <div className="flex h-[100dvh] w-full bg-dark-bg overflow-hidden">
+      {/* On mobile: show sidebar only if isSidebarVisible is true and no activeRoom selected, 
+          OR if user explicitly clicked back. Actually user requirements: 
+          "When user clicks a room/conversation in the sidebar → hide sidebar, show chat area"
+      */}
+      <div className={`${isSidebarVisible ? 'flex' : 'hidden'} md:flex w-full md:w-80 flex-shrink-0`}>
+        <Sidebar />
+      </div>
+
+      <div className={`${!isSidebarVisible ? 'flex' : 'hidden'} md:flex flex-1`}>
+        <ChatWindow />
+      </div>
+
+      <div className="hidden lg:flex w-64 flex-shrink-0">
+        <OnlineUsers />
+      </div>
     </div>
   );
 }

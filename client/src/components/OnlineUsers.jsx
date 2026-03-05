@@ -47,7 +47,7 @@ export default function OnlineUsers() {
 
   return (
     <>
-      <div className="w-64 bg-dark-sidebar border-l border-white border-opacity-10 flex flex-col h-screen">
+      <div className="w-64 bg-dark-sidebar border-l border-white border-opacity-10 flex flex-col h-[100dvh]">
         {/* Header */}
         <div className="p-4 border-b border-white border-opacity-10">
           <h2 className="text-dark-text font-bold">
